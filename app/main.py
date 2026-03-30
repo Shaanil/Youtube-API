@@ -17,10 +17,6 @@ app.add_middleware(
 def home():
     return {"message": "Backend is running"}
 
-@app.get("/health")
-def health():
-    return {"status": "ok"}
-
 @app.get("/search")
 def search(q: str = Query(..., min_length=1)):
     results = yt.search(q, filter="songs")
@@ -37,7 +33,8 @@ def search(q: str = Query(..., min_length=1)):
             "id": item.get("videoId", ""),
             "title": item.get("title", "Unknown Title"),
             "artist": artist_name,
-            "artworkURL": artwork_url
+            "artworkURL": artwork_url,
+            "streamURL": "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
         })
 
     return cleaned_results

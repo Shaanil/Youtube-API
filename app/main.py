@@ -17,6 +17,10 @@ app.add_middleware(
 def home():
     return {"message": "Backend is running"}
 
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
 @app.get("/search")
 def search(q: str = Query(..., min_length=1)):
     results = yt.search(q, filter="songs")

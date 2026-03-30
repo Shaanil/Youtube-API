@@ -23,17 +23,17 @@ def search(q: str = Query(..., min_length=1)):
 
     cleaned_results = []
     for item in results[:10]:
-        video_id = item.get("videoId", "")
+        video_id = item.get("videoId") or ""
 
-        artists = item.get("artists", [])
-        artist_name = artists[0]["name"] if artists else "Unknown Artist"
+        artists = item.get("artists") or []
+        artist_name = artists[0].get("name", "Unknown Artist") if artists else "Unknown Artist"
 
-        thumbnails = item.get("thumbnails", [])
-        artwork_url = thumbnails[-1]["url"] if thumbnails else ""
+        thumbnails = item.get("thumbnails") or []
+        artwork_url = thumbnails[-1].get("url", "") if thumbnails else ""
 
         cleaned_results.append({
             "id": video_id,
-            "title": item.get("title", "Unknown Title"),
+            "title": item.get("title") or "Unknown Title",
             "artist": artist_name,
             "artworkURL": artwork_url,
             "videoId": video_id

@@ -38,6 +38,7 @@ async def root():
         {
             "status": "ok",
             "service": "yt-mp3",
+            "health": "/health",
             "usage": "/stream/{video_id}",
         }
     )
@@ -45,6 +46,11 @@ async def root():
 
 @app.get("/health")
 async def healthcheck():
+    return {"status": "healthy"}
+
+
+@app.get("/healthz")
+async def healthcheck_alias():
     return {"status": "healthy"}
 
 
